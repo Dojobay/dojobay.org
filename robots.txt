@@ -1,0 +1,7 @@
+# The Dojo Bay — clearnet landing page
+# This host serves only the introduction page. The Dojo directory itself is
+# an onion service and is not reachable or indexable here.
+User-agent: *
+Allow: /
+
+Sitemap: https://dojobay.org/sitemap.xml
