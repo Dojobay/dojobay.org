@@ -10,7 +10,7 @@ Live at **https://dojobay.org**.
 - `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-512.png` — the torii-and-waves mark
 - `og-image.png` — 1200×630 social share card
 - `CNAME`, `robots.txt`, `sitemap.xml` — hosting and SEO
-- `README.md` — this file
+- `README.md`, `RELEASE_NOTES.md` — this file and the changelog
 
 ## Hosting
 
@@ -18,7 +18,7 @@ Served as a static site from GitHub Pages (Settings → Pages → Deploy from a 
 
 ## Making changes
 
-Everything is in `index.html`. The onion address is defined once, in the `data-full` attribute on the address line; the page abbreviates it for display but copies the full URL. If the address ever rotates, change it there. The three brand fonts (Archivo, Hanken Grotesk, JetBrains Mono) fall back to a system stack by default; a commented `@font-face` block explains how to self-host them for an exact match.
+Everything is in `index.html`. The onion address is defined once, in the `data-full` attribute on the address line; the page middle-truncates it to fit the available width (showing more characters on wider screens, the whole address when it fits) while always copying the full URL. If the address ever rotates, change it there. The three brand fonts (Archivo, Hanken Grotesk, JetBrains Mono) fall back to a system stack by default; a commented `@font-face` block explains how to self-host them for an exact match.
 
 ## Credits
 
