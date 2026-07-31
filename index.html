@@ -166,7 +166,7 @@
 
   /* ── section frame ──────────────────────────────────── */
   section{padding:clamp(48px,8vw,84px) 0;border-top:1px solid var(--line)}
-  .head{max-width:60ch;margin-bottom:38px}
+  .head{max-width:60ch;margin:0 auto 38px;text-align:center}
   .head h2{font-size:clamp(26px,4vw,38px)}
   .head p{margin-top:14px;color:var(--muted);font-size:17px}
 
@@ -195,7 +195,8 @@
     display:grid;grid-template-columns:repeat(3,1fr)}
   .step{padding:24px 24px;border-left:1px solid var(--line);text-align:center}
   .step:first-child{border-left:0}
-  .step .k{color:var(--red-light);font-size:1.1em;margin-right:6px}
+  .step .k{margin-right:8px}
+  .step .k svg{width:18px;height:18px;color:var(--red-light);vertical-align:-3px}
   .step h3{font-size:16px;margin:0 0 6px}
   .step p{color:var(--muted);font-size:14.5px}
   .verify{margin-top:20px;color:var(--muted);font-size:14px}
@@ -241,12 +242,14 @@
     .onion .copy .txt{display:none}
     .onion .copy{padding:0 16px}
   }
-  @media (max-width:640px){
+  @media (max-width:1000px){
     .hero-copy{text-align:center}
     .hero-copy h1{margin-left:auto;margin-right:auto}
     .hero-copy .lede{margin-left:auto;margin-right:auto}
-    .hero .onion{margin-left:auto;margin-right:auto;text-align:left}
+    .hero .onion{margin-left:auto;margin-right:auto;text-align:left;width:100%}
+    .hero .onion code{flex:1 1 auto}
     .hero .cta-row{justify-content:center}
+    .hero .cta-row .btn{flex:1 1 220px;justify-content:center}
     .head{text-align:center}
     .head p{margin-left:auto;margin-right:auto}
     .verify{text-align:center}
@@ -295,8 +298,7 @@
   <div class="hero">
     <div class="wrap hero-grid">
      <div class="hero-copy">
-      <p class="eyebrow">Public Dojo directory · reachable only over Tor</p>
-      <h1 style="margin-top:18px">A live directory of Dojo nodes,<br><span class="accent">reachable only over Tor.</span></h1>
+      <h1>A live directory of Dojo nodes,<br><span class="accent">reachable only over Tor.</span></h1>
       <p class="lede">The Dojo Bay lists community-run Samourai and Ashigaru Dojo backends, connects to each one over Tor every ten minutes, and shows you which are answering right now, so you can pair a wallet to a full node you didn't have to run yourself. <span class="q">The directory is served as an onion service, so you will need Tor to open it.</span></p>
 
       <div class="onion" aria-label="Onion address for the directory">
@@ -375,7 +377,7 @@
   <section id="tor" aria-labelledby="tor-h">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">Step one</p>
+        <p class="eyebrow">Getting connected</p>
         <h2 id="tor-h" style="margin-top:12px">Get on Tor in a few minutes.</h2>
         <p>You need a Tor-capable browser to open the directory. Install the right one for your device, then come back and paste the address above.</p>
       </div>
@@ -397,7 +399,7 @@
             <h3>Android</h3>
           </div>
           <div class="os">Phone · tablet</div>
-          <p>Tor Browser for Android is an official Tor Project app, with the same multi-relay routing as desktop. Grab it from the same download page or Google Play.</p>
+          <p>Tor Browser for Android is an official Tor Project app, with the same multi-relay routing as desktop. Grab it from the same download page or F-Droid.</p>
           <a class="btn btn-primary" href="https://www.torproject.org/download/#android" rel="noopener">Get it for Android</a>
         </div>
 
@@ -414,15 +416,15 @@
 
       <div class="steps">
         <div class="step">
-          <h3><span class="k">1</span> Install and open it</h3>
+          <h3><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11"/><path d="m8 11 4 4 4-4"/><path d="M5 20h14"/></svg></span>Install and open it</h3>
           <p>Only ever download Tor from torproject.org (or Onion Browser from the App Store). Let it connect to the network.</p>
         </div>
         <div class="step">
-          <h3><span class="k">2</span> Paste the address</h3>
+          <h3><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/></svg></span>Paste the address</h3>
           <p>Copy the <code style="font-family:var(--font-mono);color:var(--paper)">.onion</code> address from the top of this page into the Tor address bar.</p>
         </div>
         <div class="step">
-          <h3><span class="k">3</span> Browse the directory</h3>
+          <h3><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2z"/></svg></span>Browse the directory</h3>
           <p>See which Dojos are live, open a node's pairing details, and connect your Samourai or Ashigaru wallet.</p>
         </div>
       </div>
@@ -481,12 +483,56 @@
     var addr = document.getElementById('onion-addr');
     var label = document.getElementById('copy-label');
     var full = (addr && addr.dataset && addr.dataset.full) ? addr.dataset.full : (addr ? addr.textContent.trim() : '');
+    var host = full ? full.replace(/^https?:\/\//, '').replace(/\/+$/, '') : '';
+
+    // Middle-truncate to whatever fits the available width; the full URL stays
+    // in data-full for copying, so nothing is lost by shortening the display.
+    function fitAddress() {
+      if (!addr || !host) return;
+      var column = addr.parentNode.parentNode.parentNode; // .row -> .onion -> column
+      var avail = column ? column.clientWidth : 0;
+      if (!avail) return;
+
+      var cs = window.getComputedStyle(addr);
+      var probe = document.createElement('span');
+      probe.style.cssText = 'position:absolute;left:-9999px;top:0;white-space:pre;visibility:hidden';
+      probe.style.fontFamily = cs.fontFamily;
+      probe.style.fontSize = cs.fontSize;
+      probe.style.fontWeight = cs.fontWeight;
+      probe.style.letterSpacing = cs.letterSpacing;
+      probe.textContent = host;
+      document.body.appendChild(probe);
+      var fullW = probe.getBoundingClientRect().width;
+      probe.textContent = '0';
+      var charW = probe.getBoundingClientRect().width || 8;
+      document.body.removeChild(probe);
+
+      var padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+      var space = avail - (btn ? btn.offsetWidth : 0) - padX - 6; // 6px borders + safety
+      if (space <= 0) return;
+
+      if (fullW <= space) { addr.textContent = host; return; }
+
+      var maxChars = Math.floor(space / charW);
+      var lbl = host.replace(/\.onion$/, '');
+      var room = maxChars - 7; // ".onion" plus the ellipsis
+      if (room >= lbl.length) { addr.textContent = host; return; }
+      if (room < 10) room = 10;
+      var tail = Math.max(4, Math.min(12, Math.round(room * 0.35)));
+      var head = Math.max(4, room - tail);
+      addr.textContent = lbl.slice(0, head) + '…' + lbl.slice(-tail) + '.onion';
+    }
 
     if (addr && full) {
-      // Middle-truncate for display; the full URL stays in data-full for copying.
-      var host = full.replace(/^https?:\/\//, '').replace(/\/+$/, '');
-      var lbl = host.replace(/\.onion$/, '');
-      if (lbl.length > 24) addr.textContent = lbl.slice(0, 14) + '…' + lbl.slice(-6) + '.onion';
+      addr.title = full;
+      fitAddress();
+      var refit;
+      window.addEventListener('resize', function () {
+        clearTimeout(refit); refit = setTimeout(fitAddress, 120);
+      });
+      if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+        document.fonts.ready.then(fitAddress).catch(function () {});
+      }
     }
 
     if (btn && addr) {
