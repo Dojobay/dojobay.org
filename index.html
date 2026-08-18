@@ -107,6 +107,19 @@
   }
 
   /* ── header ─────────────────────────────────────────── */
+  /* ── solidarity banner ──────────────────────────────── */
+  .banner{background:linear-gradient(90deg,rgba(181,48,42,.20),rgba(181,48,42,.13));
+    border-bottom:1px solid rgba(214,83,74,.26);color:#e6e6e9;font-size:14px;line-height:1.5}
+  .banner .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:6px 16px;padding-top:11px;padding-bottom:11px;text-align:center}
+  .banner p{max-width:62ch}
+  .banner .links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px}
+  .banner a{color:var(--red-light);text-decoration:underline;text-underline-offset:3px;
+    text-decoration-thickness:1px;white-space:nowrap;font-weight:500}
+  .banner a:hover{color:var(--paper)}
+  .banner .sep{color:var(--muted);opacity:.6}
+  @media (max-width:600px){.banner{font-size:13.5px}.banner .sep{display:none}}
+
   header{position:sticky;top:0;z-index:5;backdrop-filter:blur(10px);
     background:rgba(11,11,12,.66);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
@@ -269,6 +282,19 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<aside class="banner" aria-label="Support notice">
+  <div class="wrap">
+    <p>Support Bill and Keonne in their fight against unjust prosecution in the case against Samourai Wallet.</p>
+    <span class="links">
+      <a href="https://billandkeonne.org/" rel="noopener">Learn more</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://www.change.org/p/stand-up-for-freedom-pardon-the-innocent-coders-jailed-for-building-privacy-tools" rel="noopener">Sign the petition</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://www.givesendgo.com/billandkeonne" rel="noopener">Donate to families</a>
+    </span>
+  </div>
+</aside>
+
 <header>
   <div class="wrap bar">
     <a class="brand" href="/" aria-label="The Dojo Bay home">
@@ -395,12 +421,12 @@
 
         <div class="card">
           <h3>Sentinel</h3>
-          <p>The watch-only companion: track balances and receive to a wallet whose keys stay offline, by importing an xpub rather than a seed.</p>
+          <p>The watch-only companion for keys you keep offline. Sentinel tracks addresses and extended public keys without ever holding a private key, derives the next unused receive address, and broadcasts transactions signed on an airgapped device. Paired with a Dojo, none of it touches someone else's server.</p>
           <a class="btn btn-ghost" href="https://github.com/wanderingking072/sentinel-android" rel="noopener" style="margin-top:20px;width:100%;justify-content:center;padding:12px 18px;font-size:14.5px">Source &amp; releases</a>
         </div>
 
         <div class="card">
-          <h3>Samourai Wallet</h3>
+          <h3>Samourai</h3>
           <p>The original wallet, and the software Dojo was first written for. Development stopped in April 2024 when its founders were arrested, and it is no longer distributed or maintained. Kept here for reference only.</p>
           <a class="btn btn-ghost" href="https://web.archive.org/web/20240424023506/https://samouraiwallet.com/" rel="noopener" style="margin-top:20px;width:100%;justify-content:center;padding:12px 18px;font-size:14.5px">Archived site (2024)</a>
         </div>
