@@ -109,16 +109,26 @@
   /* ── header ─────────────────────────────────────────── */
   /* ── solidarity banner ──────────────────────────────── */
   .banner{background:linear-gradient(90deg,rgba(181,48,42,.20),rgba(181,48,42,.13));
-    border-bottom:1px solid rgba(214,83,74,.26);color:#e6e6e9;font-size:14px;line-height:1.5}
-  .banner .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
-    gap:6px 16px;padding-top:11px;padding-bottom:11px;text-align:center}
-  .banner p{max-width:62ch}
-  .banner .links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px}
+    border-bottom:1px solid rgba(214,83,74,.26);color:#e6e6e9;font-size:13px;line-height:1.5;position:relative}
+  .banner[hidden]{display:none}
+  .banner .wrap{max-width:1440px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:5px 14px;padding:10px 44px;text-align:center}
+  .banner p{max-width:none}
+  .banner .links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:5px 12px}
   .banner a{color:var(--red-light);text-decoration:underline;text-underline-offset:3px;
     text-decoration-thickness:1px;white-space:nowrap;font-weight:500}
   .banner a:hover{color:var(--paper)}
   .banner .sep{color:var(--muted);opacity:.6}
-  @media (max-width:600px){.banner{font-size:13.5px}.banner .sep{display:none}}
+  .banner .close{position:absolute;right:12px;top:50%;transform:translateY(-50%);
+    width:30px;height:30px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--muted);
+    cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .banner .close:hover{color:var(--paper);background:rgba(244,244,243,.07)}
+  .banner .close svg{width:15px;height:15px}
+  @media (min-width:1080px){
+    .banner .wrap{flex-wrap:nowrap}
+    .banner p,.banner .links{white-space:nowrap}
+  }
+  @media (max-width:600px){.banner{font-size:13px}.banner .wrap{padding:10px 44px}.banner .sep{display:none}}
 
   header{position:sticky;top:0;z-index:5;backdrop-filter:blur(10px);
     background:rgba(11,11,12,.66);border-bottom:1px solid var(--line)}
@@ -282,9 +292,9 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<aside class="banner" aria-label="Support notice">
+<aside class="banner" id="banner" aria-label="Support notice">
   <div class="wrap">
-    <p>Support Bill and Keonne in their fight against unjust prosecution in the case against Samourai Wallet.</p>
+    <p>Support Bill and Keonne in their fight against unjust prosecution in the Samourai Wallet case.</p>
     <span class="links">
       <a href="https://billandkeonne.org/" rel="noopener">Learn more</a>
       <span class="sep" aria-hidden="true">·</span>
@@ -293,6 +303,9 @@
       <a href="https://www.givesendgo.com/billandkeonne" rel="noopener">Donate to families</a>
     </span>
   </div>
+  <button class="close" id="banner-close" type="button" aria-label="Dismiss this notice" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
 </aside>
 
 <header>
@@ -541,6 +554,26 @@
   (function () {
     var y = document.getElementById('yr');
     if (y) y.textContent = new Date().getFullYear();
+
+    // Banner dismissal. Session-scoped only: it clears when the browser closes,
+    // and nothing persistent is written. Wrapped because Tor Browser may block
+    // storage access entirely, in which case the banner simply returns on reload.
+    var banner = document.getElementById('banner');
+    var bannerClose = document.getElementById('banner-close');
+    if (banner && bannerClose) {
+      var KEY = 'dojobay:notice-dismissed';
+      var stored = null;
+      try { stored = window.sessionStorage.getItem(KEY); } catch (e) {}
+      if (stored === '1') {
+        banner.hidden = true;
+      } else {
+        bannerClose.hidden = false;
+        bannerClose.addEventListener('click', function () {
+          banner.hidden = true;
+          try { window.sessionStorage.setItem(KEY, '1'); } catch (e) {}
+        });
+      }
+    }
 
     var btn = document.getElementById('copy-btn');
     var addr = document.getElementById('onion-addr');
